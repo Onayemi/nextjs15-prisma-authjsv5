@@ -128,7 +128,9 @@ export const Header = () => {
             Book a demo
           </Button>
           <div className="border-r hidden md:inline"></div>
-          <Button variant="outline">Sign in</Button>
+          <Link href={"/auth/login"}>
+            <Button variant="outline">Sign in</Button>
+          </Link>
           <Button>Get started</Button>
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
