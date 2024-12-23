@@ -83,4 +83,8 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 
 const { data: session } = useSession()
 const pathname = usePathname()
+
+https://www.twblocks.com/
+
+npm i framer-motion
 ```
