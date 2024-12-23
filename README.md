@@ -34,3 +34,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+npx create-next-app@latest
+npm i prisma--save-dev
+npx prisma init
+
+npx prisma db push
+npx prisma studio
+
+npm i @prisma/client @auth/prisma-adapter
+npm i next-auth@beta
+
+Create Model for Schema
+npx prisma db push
+npm prisma generate
+
+auth.ts
+auth.config.ts
+
+npm i bcryptjs zod
+npm i -save-dev @types/bcryptjs
+
+npm i react-hook-form
+npm i @hookform/resolvers
+
+npm i react-icons
+
+"use client"
+import { signIn } from 'next-auth/react'
+
+export default function GitHubButton() {
+return (
+<button onClick={() => signIn('github')>Continue with GitHub</button>  
+ )
+}
+
+'use client'
+import { useSession, signIn, signOut } from 'next-auth/react'
+
+const { data: session } = useSession()
+const pathname = usePathname()
