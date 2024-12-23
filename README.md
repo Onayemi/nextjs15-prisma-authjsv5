@@ -100,3 +100,9 @@ git branch -M main
 git remote add origin git@github.com:Onayemi/nextjs15-prisma-authjsv5.git
 git push -u origin main
 ```
+
+```bash
+git add .
+git commit -m "Added auth"
+git push -u origin main
+```
