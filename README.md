@@ -35,6 +35,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+```bash
 npx create-next-app@latest
 npm i prisma--save-dev
 npx prisma init
@@ -73,7 +74,7 @@ import { signIn } from 'next-auth/react'
 
 export default function GitHubButton() {
 return (
-<button onClick={() => signIn('github')>Continue with GitHub</button>  
+<button onClick={() => signIn('github')>Continue with GitHub</button>
  )
 }
 
@@ -82,3 +83,4 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 
 const { data: session } = useSession()
 const pathname = usePathname()
+```
