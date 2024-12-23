@@ -87,4 +87,16 @@ const pathname = usePathname()
 https://www.twblocks.com/
 
 npm i framer-motion
+
+```
+
+## Github Push
+
+```bash
+git init
+git add .
+git commit -m "Added auth"
+git branch -M main
+git remote add origin git@github.com:Onayemi/nextjs15-prisma-authjsv5.git
+git push -u origin main
 ```
