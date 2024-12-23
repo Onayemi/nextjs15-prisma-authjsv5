@@ -28,7 +28,7 @@ export const login = async (data: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email: userExist.email,
       password,
-      redirectTo: "/dashboard",
+      redirectTo: "/admin/dashboard",
     });
     //return { success: "User created Successfully" };
   } catch (error) {

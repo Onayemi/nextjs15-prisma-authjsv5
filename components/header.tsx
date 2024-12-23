@@ -12,8 +12,11 @@ import {
 import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export const Header = () => {
+  const { data: session } = useSession();
   const navigationItems = [
     {
       title: "Home",
@@ -38,7 +41,7 @@ export const Header = () => {
         },
         {
           title: "Recordings",
-          href: "/recordings",
+          href: "/admin/users",
         },
       ],
     },
@@ -131,7 +134,9 @@ export const Header = () => {
           <Link href={"/auth/login"}>
             <Button variant="outline">Sign in</Button>
           </Link>
-          <Button>Get started</Button>
+          <Link href={"/auth/register"}>
+            <Button>Get started</Button>
+          </Link>
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
