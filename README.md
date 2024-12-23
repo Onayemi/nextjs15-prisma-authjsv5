@@ -60,6 +60,14 @@ npm i @hookform/resolvers
 
 npm i react-icons
 
+.env
+DATABASE_URL="postgresql://postgres:light@localhost:5432/nextjs15_authv5?schema=public"
+AUTH_SECRET=hfgkjhjkfgdfgjhghgjhgjjk
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
 "use client"
 import { signIn } from 'next-auth/react'
 
