@@ -5,10 +5,18 @@ import { AuthError } from "next-auth";
 
 export async function githubAuthenticate() {
   try {
-    await signIn("github");
+    await signIn("github", {
+      redirectTo: "/admin/dashboard",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
-      return "github  log in failed";
+      // console.log(error.type);
+      switch (error.type) {
+        case "OAuthAccountNotLinked":
+          return { error: "Email has been used for another provider" };
+        default:
+          return { error: "Please confirm your email address" };
+      }
     }
     throw error;
   }

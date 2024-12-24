@@ -20,6 +20,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectGroup,
+//   SelectItem,
+//   SelectLabel,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RegisterSchema } from "@/schema";
@@ -28,7 +37,8 @@ import { useState } from "react";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { register } from "@/actions/register";
-import GoogleLogin, { GithubLogin } from "./google-button";
+import GoogleLogin from "./google-button";
+import GithubLogin from "./github-button";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -53,12 +63,18 @@ const RegisterForm = () => {
         setLoading(false);
         setError(res.error);
         setSuccess("");
+        setTimeout(() => {
+          setError("");
+        }, 5000);
       }
       if (res.success) {
         setLoading(false);
         setError("");
         setSuccess(res.success);
         form.reset();
+        setTimeout(() => {
+          setSuccess("");
+        }, 5000);
       }
       setLoading(false);
     });
@@ -146,6 +162,48 @@ const RegisterForm = () => {
                   )}
                 />
               </div>
+              {/* <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="product_plan"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Product Plan</FormLabel>
+                      <FormControl>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Choose Product Plan" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Choose Product Plan</SelectLabel>
+                              <SelectItem value="est">
+                                Eastern Standard Time (EST)
+                              </SelectItem>
+                              <SelectItem value="cst">
+                                Central Standard Time (CST)
+                              </SelectItem>
+                              <SelectItem value="mst">
+                                Mountain Standard Time (MST)
+                              </SelectItem>
+                              <SelectItem value="pst">
+                                Pacific Standard Time (PST)
+                              </SelectItem>
+                              <SelectItem value="akst">
+                                Alaska Standard Time (AKST)
+                              </SelectItem>
+                              <SelectItem value="hst">
+                                Hawaii Standard Time (HST)
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div> */}
               <FormError message={error} />
               <FormSuccess message={success} />
               <Button type="submit" className="w-full" disabled={loading}>
@@ -160,8 +218,8 @@ const RegisterForm = () => {
             </div>
           </form>
         </Form>
-        <GoogleLogin />
-        <GithubLogin />
+        {/* <GoogleLogin />
+        <GithubLogin /> */}
       </CardContent>
     </Card>
   );

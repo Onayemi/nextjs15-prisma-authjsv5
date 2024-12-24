@@ -13,6 +13,9 @@ export const RegisterSchema = z.object({
   passwordConfirmation: z.string().min(8, {
     message: "Password must be at least 8 character long",
   }),
+  // product_plan: z.string({
+  //   message: "Choose product plan",
+  // }),
 });
 
 export const LoginSchema = z.object({

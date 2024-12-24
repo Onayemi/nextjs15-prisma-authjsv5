@@ -24,22 +24,4 @@ export default function GoogleLogin() {
   );
 }
 
-export function GithubLogin() {
-  const [errorMsgGithub, dispatchGithub] = useActionState(
-    googleAuthenticate,
-    undefined
-  );
-  return (
-    <form className="flex mt-4" action={dispatchGithub}>
-      <Button
-        variant={"outline"}
-        className="flex flex-row items-center gap-3 w-full"
-      >
-        <BsGithub />
-        Github Sign In
-      </Button>
-      <p>{errorMsgGithub}</p>
-    </form>
-  );
-}
 // export default GoogleLogin;

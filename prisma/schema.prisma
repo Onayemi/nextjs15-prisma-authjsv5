@@ -14,8 +14,11 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
+  role          String          @default("user")
   accounts      Account[]
   sessions      Session[]
+  clients       Client[]
+  Transaction   Transaction[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
@@ -55,11 +58,14 @@ model Session {
 }
 
 model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+  id      String   @id @default(cuid())
+  email   String
+  // identifier String
+  token   String
+  expires DateTime
 
-  @@id([identifier, token])
+  // @@id([identifier, token])
+  @@unique([email, token])
 }
 
 // Optional for WebAuthn support
@@ -76,4 +82,35 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model Client {
+  id      String  @id @default(cuid())
+  name    String?
+  email   String  @unique
+  address String
+  userId  String
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  Transaction Transaction[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Transaction {
+  id                String @id @default(cuid())
+  trans_id          String
+  amount            Float
+  plan              String
+  expired_date      String
+  status            String
+  duration_by_month String
+  total             Float
+  clientId          String
+  userId            String
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client            Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

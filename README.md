@@ -46,9 +46,9 @@ npx prisma studio
 npm i @prisma/client @auth/prisma-adapter
 npm i next-auth@beta
 
-Create Model for Schema
-npx prisma db push
+--- Create Model for Schema ---
 npm prisma generate
+npx prisma db push
 
 auth.ts
 auth.config.ts
@@ -105,4 +105,103 @@ git push -u origin main
 git add .
 git commit -m "Added auth"
 git push -u origin main
+```
+
+```bash
+import NextAuth from "next-auth";
+
+declare module "next-auth" {
+  interface User {
+    id: string;
+    role: string;
+  }
+
+  interface Session {
+    user: User & {
+      id: string;
+      role: string;
+    };
+    token: {
+      id: string;
+      role: string;
+    };
+  }
+}
+
+```
+
+```bash
+npm i uuid --force ---> Nextjs 15 to generate random
+JavaScript / TypeScript:
+import { v4 as uuid } from "uuid";
+ console.log("uuid verification code : ", uuid());
+ uuid v6 verification code :  1efc1e2e-20d5-6930-b278-495867e170ab
+ uuid v4 verification code :  60bab2b6-3057-459c-8642-24d938699ee9
+
+npm i nodemailer
+
+To install nodemailer in Nextjs 15 React 19
+npm i nodemailer --legacy-peer-deps
+
+Verification link
+const verificationLink = `${process.env.NEXT_PUBLIC_URL}/verify-email?verifyToken=${verificationToken}&id=${newUser?.id}`
+
+utils/sendEmail.ts
+
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer"; // set it in next.d.ts
+
+export const sendEmail = async (
+  userEmail: string,
+  subject: string,
+  message: string
+) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.SMTP_FROM_EMAIL,
+      to: userEmail,
+      subject,
+      text: message, //html: message,
+    };
+
+    await transporter.sendEmail(mailOptions);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Something went wrong" + error,
+      },
+      { status: 500 }
+    );
+  }
+};
+
+
+.env
+NEXT_PUBLIC_URL="http://localhost:3000"
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+SMTP_FROM_EMAIL=
+
+In the register server action form
+await sendEmail(newUser?.email, "Email Verification", verificationLink);
+```
+
+```bash
+Forgot Password Method
+Tips:
+# find the user with email
+# create a reset token
+# save the reset token in ForgotPasswordToken
+# send reset password link in email
 ```

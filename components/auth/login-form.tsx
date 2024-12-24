@@ -26,8 +26,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { LoginSchema } from "@/schema";
 import { login } from "@/actions/login";
-import GoogleLogin, { GithubLogin } from "./google-button";
+import GoogleLogin from "./google-button";
 import { FormError } from "./form-error";
+import GithubLogin from "./github-button";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
