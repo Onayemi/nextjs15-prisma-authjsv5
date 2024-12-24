@@ -198,10 +198,14 @@ await sendEmail(newUser?.email, "Email Verification", verificationLink);
 ```
 
 ```bash
+see video: https://www.youtube.com/watch?v=vu78olWoV0I
 Forgot Password Method
 Tips:
 # find the user with email
 # create a reset token
 # save the reset token in ForgotPasswordToken
 # send reset password link in email
+
+# Reset Password
+password-reset/[token]/page.tsx
 ```

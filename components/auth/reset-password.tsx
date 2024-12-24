@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ForgotSchema } from "@/schema";
+import { ForgotSchema, ResetPasswordSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useState } from "react";
@@ -24,32 +24,36 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { forgotPassword } from "@/actions/register";
+import { resetPassword } from "@/actions/register";
 import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
+// import { useRouter } from "next/navigation";
 
-const ForgotForm = () => {
+const ResetPasswordForm = () => {
+  //   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const form = useForm<z.infer<typeof ForgotSchema>>({
-    resolver: zodResolver(ForgotSchema),
+  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      email: "",
+      password: "",
+      confirm: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof ForgotSchema>) => {
+  const onSubmit = async (data: z.infer<typeof ResetPasswordSchema>) => {
     setLoading(true);
     // console.log(data);
-    forgotPassword(data).then((res) => {
+    resetPassword(data).then((res) => {
       if (res?.error) {
         setError(res?.error);
         setLoading(false);
       } else {
         setError("");
         setLoading(false);
+        // router.push("/auth/forgot-password/success");
       }
       // setLoading(false);
     });
@@ -58,7 +62,7 @@ const ForgotForm = () => {
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle className="text-xl">Forgotten Password</CardTitle>
+        <CardTitle className="text-xl">Reset Password</CardTitle>
         <CardDescription>Create an account?</CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,16 +72,34 @@ const ForgotForm = () => {
               <div className="grid gap-2">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>Pasword</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          name="email"
-                          placeholder="johndoe@email.com"
-                          type="email"
+                          placeholder="password"
+                          type="password"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="confirm"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="confirm password"
+                          type="password"
                         />
                       </FormControl>
                       <FormMessage />
@@ -88,7 +110,7 @@ const ForgotForm = () => {
               <FormError message={error} />
               <FormSuccess message={success} />
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Loading..." : "Forgot Password"}
+                {loading ? "Loading..." : "Reset Password"}
               </Button>
               <div className="text-center text-sm">
                 Already have an account?{" "}
@@ -107,4 +129,4 @@ const ForgotForm = () => {
   );
 };
 
-export default ForgotForm;
+export default ResetPasswordForm;
