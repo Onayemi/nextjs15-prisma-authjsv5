@@ -7,6 +7,7 @@ import { ForgotSchema, RegisterSchema, ResetPasswordSchema } from "@/schema";
 import { v4 as uuid } from "uuid";
 import { sendEmail } from "@/data/sendEmail";
 import { redirect, RedirectType } from "next/navigation";
+import { NextResponse } from "next/server";
 
 function getRandomSixDigit() {
   return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
@@ -114,9 +115,10 @@ export const forgotPassword = async (data: z.infer<typeof ForgotSchema>) => {
     `;
     // Send mail
     await sendEmail(user.email, "Reset Email Verification", verificationLink);
-    return { success: "Password reset successfully" };
-    // redirect("/auth/forgot-password/success");
+    // return { success: "Password reset successfully" };
+    // return redirect("/auth/forgot-password/success");
     // redirect("/auth/forgot-password/success", RedirectType.replace);
+    return NextResponse.redirect(`/auth/forgot-password/success`);
   } catch (error) {
     console.log(error);
     return { error: "An error occurred" };

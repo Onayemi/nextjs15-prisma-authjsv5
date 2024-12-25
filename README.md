@@ -209,3 +209,16 @@ Tips:
 # Reset Password
 password-reset/[token]/page.tsx
 ```
+
+```bash
+Add backgroundImage to tailwind
+
+extend: {
+  backgroundImage: {
+    bannerImg: "url("/bannerImg.jpg")"
+  },
+  ...
+}
+
+bg-bannerImg bg-repeat bg-cover bg-bottom w-full
+```

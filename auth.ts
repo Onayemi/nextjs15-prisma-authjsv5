@@ -39,14 +39,14 @@ export const {
       token.isOauth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;
-      // token.role = existingUser.role;
+      token.role = existingUser.role;
       token.image = existingUser.image;
 
       return token;
     },
     async session({ token, session }) {
       // console.log("session token", token);
-      // console.log("session object", session);
+      console.log("session object", session);
       return {
         ...session,
         user: {
