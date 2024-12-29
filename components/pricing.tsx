@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 export const Pricing = () => (
   <div className="w-full py-20 lg:py-20 bg-gray-100">
     <div className="container mx-auto">
-      <div className="flex text-center justify-center items-center gap-4 flex-col">
+      <div className="flex mx-[24px] text-center justify-center items-center gap-4 flex-col">
         <Badge>Pricing</Badge>
         <div className="flex gap-2 flex-col">
           <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-regular">

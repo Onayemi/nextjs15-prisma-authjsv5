@@ -34,19 +34,19 @@ export const {
 
       // If there is existing account meaning they login with google account
       const existingAccount = await getAccountByUserId(existingUser.id);
-
+      // token.role = user.role;
       // token.isOauth --> if they authenticated with google provider
       token.isOauth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
+      token.phone = existingUser.phone;
       token.image = existingUser.image;
-
       return token;
     },
     async session({ token, session }) {
       // console.log("session token", token);
-      console.log("session object", session);
+      // console.log("session object", session);
       return {
         ...session,
         user: {
@@ -54,7 +54,8 @@ export const {
           id: token.sub,
           isOauth: token.isOauth,
           name: token.name,
-          role: token.role,
+          role: token?.role,
+          phone: token?.phone,
         },
       };
     },

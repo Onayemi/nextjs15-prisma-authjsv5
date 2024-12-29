@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/carousel";
 
 export const Feature8 = () => (
-  <div className="w-full pb-20 lg:py-20">
+  <div className="w-full pb-20 lg:py-20 bg-gray-200">
     <div className="container mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end  gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end  mx-[24px] gap-10">
         <div className="flex gap-4 flex-col items-start">
           <div>
             <Badge>Platform</Badge>

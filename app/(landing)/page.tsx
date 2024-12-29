@@ -7,6 +7,7 @@ import { Feature8 } from "@/components/feature";
 import { Feature2 } from "@/components/feature2";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
+import { Hero3 } from "@/components/hero3";
 import { Pricing } from "@/components/pricing";
 import { Stats1 } from "@/components/stats1";
 
@@ -17,9 +18,10 @@ export default function Home() {
       <Case2 />
       <Stats1 />
       <Blog />
-      <Feature8 />
       <Contact />
       <Feature2 />
+      <Feature8 />
+      <Hero3 />
       <FAQ2 />
       <Pricing />
       <Footer />

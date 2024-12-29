@@ -29,6 +29,7 @@ import { login } from "@/actions/login";
 import GoogleLogin from "./google-button";
 import { FormError } from "./form-error";
 import GithubLogin from "./github-button";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
@@ -48,11 +49,14 @@ const LoginForm = () => {
     // console.log(data);
     login(data).then((res) => {
       if (res?.error) {
-        setError(res?.error);
         setLoading(false);
+        // setError(res?.error);
+        toast.error(res?.error, { theme: "colored" });
       } else {
-        setError("");
         setLoading(false);
+        toast.success("User logged in successfully", { theme: "colored" });
+        // setError("");
+        // toast.success(res?.success, { theme: "colored" });
       }
       // setLoading(false);
     });

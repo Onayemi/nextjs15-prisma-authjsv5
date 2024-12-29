@@ -222,3 +222,84 @@ extend: {
 
 bg-bannerImg bg-repeat bg-cover bg-bottom w-full
 ```
+
+```bash
+types/authjs.d.ts
+
+import { type DefaultSession } from "next-auth";
+
+declare module "next-auth" {
+  interface Session {
+    user: User & DefaultSession["user"];
+  }
+}
+
+
+auth.ts
+async jwt({ token }) {
+      if (!token.sub) return token;
+
+      const existingUser = await getUserById(token.sub);
+      if (!existingUser) return token;
+
+      // If there is existing account meaning they login with google account
+      const existingAccount = await getAccountByUserId(existingUser.id);
+      // token.role = user.role;
+      // token.isOauth --> if they authenticated with google provider
+      token.isOauth = !!existingAccount;
+      token.name = existingUser.name;
+      token.email = existingUser.email;
+      token.role = existingUser.role;
+      token.image = existingUser.image;
+      return token;
+    },
+    async session({ token, session }) {
+      // console.log("session token", token);
+      // console.log("session object", session);
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub,
+          isOauth: token.isOauth,
+          name: token.name,
+          role: token?.role,
+        },
+      };
+    },
+```
+
+```bash
+--- axios.ts ---
+import axios from "axios"
+
+const myAxios = axios.create({
+  baseUrl: "http://localhost:8000/api",
+  headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${user.token}`,
+    }
+})
+export default myAxios;
+
+----------------
+import { useRouter } from "next/navigation"
+import axios from "axios"
+
+const deletePost =() => {
+  axios.delete(`${POST_URL}/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      Accept: "application/json",
+    }
+  }).then(() => {
+    toast.success("Post Deleted Successfully", { theme: "colored"});
+    router.refresh()
+  }).catch((err) => {
+    toast.error("Something went wrong, please try again", { theme: "colored" });
+  })
+}
+
+npm i react-toastify
+
+```

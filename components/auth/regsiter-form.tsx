@@ -39,6 +39,7 @@ import { FormError } from "./form-error";
 import { register } from "@/actions/register";
 import GoogleLogin from "./google-button";
 import GithubLogin from "./github-button";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -61,20 +62,27 @@ const RegisterForm = () => {
     register(data).then((res) => {
       if (res.error) {
         setLoading(false);
-        setError(res.error);
-        setSuccess("");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+        // setError(res.error);
+        toast.error(res.error, { theme: "colored" });
+        // setSuccess("");
+        // setTimeout(() => {
+        //   setError("");
+        // }, 5000);
       }
       if (res.success) {
         setLoading(false);
-        setError("");
-        setSuccess(res.success);
+        // setError("");
+        // setSuccess(res.success);
         form.reset();
-        setTimeout(() => {
-          setSuccess("");
-        }, 5000);
+        // setTimeout(() => {
+        //   setSuccess("");
+        // }, 5000);
+        toast.success(
+          res.success +
+            ", mail has been sent to you, please activate your email",
+          { theme: "colored" }
+        );
+        // toast.success("Register successfully", { theme: "colored" });
       }
       setLoading(false);
     });
